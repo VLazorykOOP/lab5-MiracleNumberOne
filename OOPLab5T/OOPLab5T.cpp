@@ -56,6 +56,66 @@ public:
     }
 };
 
+class Room {
+private:
+    double area; // Площа кімнати
+
+public:
+    // Конструктор
+    Room(double _area) : area(_area) {}
+
+    // Метод доступу до площі
+    double getArea() const {
+        return area;
+    }
+};
+
+class OneBedroomApartment {
+private:
+    Room room;     // Кімната
+    double kitchenArea; // Площа кухні
+    int floor;     // Поверх
+
+public:
+    // Конструктор з параметрами
+    OneBedroomApartment(double _roomArea, double _kitchenArea, int _floor)
+        : room(_roomArea), kitchenArea(_kitchenArea), floor(_floor) {}
+
+    // Метод доступу до площі кухні
+    double getKitchenArea() const {
+        return kitchenArea;
+    }
+
+    // Метод доступу до поверху
+    int getFloor() const {
+        return floor;
+    }
+};
+
+class CityOneBedroomApartment : public OneBedroomApartment {
+private:
+    std::string cityName; // Назва міста
+
+public:
+    // Конструктор з параметрами
+    CityOneBedroomApartment(double _roomArea, double _kitchenArea, int _floor, const std::string& _cityName)
+        : OneBedroomApartment(_roomArea, _kitchenArea, _floor), cityName(_cityName) {}
+
+    // Метод доступу до назви міста
+    const std::string& getCityName() const {
+        return cityName;
+    }
+
+    // Функція друку
+    void print() const {
+        std::cout << "One Bedroom Apartment in " << cityName << std::endl;
+        std::cout << "Floor: " << getFloor() << std::endl;
+        std::cout << "Room Area: " << room.getArea() << " sq.m" << std::endl;
+        std::cout << "Kitchen Area: " << getKitchenArea() << " sq.m" << std::endl;
+    }
+};
+
+
 int main() {
     // Тестування класу Студент
     Student student1("Іванов Іван Іванович", 2, 12345);
@@ -69,6 +129,13 @@ int main() {
     student2.setThesisTopic("Машинне навчання");
     student2.setId(98765);
     student2.print();
+
+    
+    // Створення об'єкту класу CityOneBedroomApartment
+    CityOneBedroomApartment apartment(50.0, 10.0, 5, "Kyiv");
+
+    // Виклик функції друку
+    apartment.print();
 
     return 0;
 }
